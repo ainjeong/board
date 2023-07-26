@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>게시판</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	max-width: 650px;
+	margin: 0 auto;
+	background-color: #FFFFFF;
+	padding: 5px;
+}
+
+h1 {
+	color: #000000;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+li {
+	margin-bottom: 10px;
+	padding: 3px;
+	background-color: #F0F0F0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 5px;
+}
+
+.writer-info {
+	display: flex;
+	align-items: center;
+}
+
+.writer {
+	font-size: 14px;
+	color: #1E90FF;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.writer:hover {
+	text-decoration: underline;
+}
+
+a {
+	text-decoration: none;
+}
+
+.write-btn, .login-btn {
+	background-color: #000000;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	margin-right: 10px;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.write-btn:hover, .login-btn:hover {
+	background-color: #333333;
+}
+
+.center {
+	text-align: center;
+}
+
+.board-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #1E90FF;
+	margin-bottom: 5px;
+}
+
+.board-writer {
+	font-size: 18px;
+	font-weight: bold;
+	color: #1E90FF;
+	margin-bottom: 5px;
+	
+}
+  .search-form {
+            display: flex;
+            justify-content: flex-end;
+            align-items: right;
+        }
+
+        .search-form input[type="text"],
+        .search-form button {
+            margin-left: 5px;
+        }
+</style>
+</head>
+<body>
+    <div class="center">
+        {{#isLoggedIn}}
+        <h5 style="color: blue;">{{nickname}} 님, 안녕하세요!</h5>
+        {{/isLoggedIn}}
+        {{^isLoggedIn}}
+        <h5 style="color: blue;">guest 님, 안녕하세요!</h5>
+        {{/isLoggedIn}}
+        <a href="/home" style="text-decoration: none;">
+        <h1>자유게시판</h1>
+        </a>
+        {{#isLoggedIn}} <a href="/logout" class="login-btn">로그아웃</a>
+        {{/isLoggedIn}}
+        {{^isLoggedIn}} <a href="/login" class="login-btn">로그인</a>
+        {{/isLoggedIn}} <a href="/write" class="write-btn">글쓰기</a>
+    </div>
+    <div class="search-form">
+        <!-- 검색 폼 -->
+        <form action="/search" method="get">
+            <input type="text" name="keyword" placeholder="검색어를 입력하세요">
+            <button type="submit">검색</button>
+        </form>
+    </div>
+    <ul>
+        <li>
+            <p style="font-size: 16px; font-weight: bold; color: #000000; margin-bottom: 5px;">글번호</p>
+            <p style="font-size: 16px; font-weight: bold; color: #000000; margin-bottom: 5px;">제목</p>
+            <p style="font-size: 16px; font-weight: bold; color: #000000; margin-bottom: 5px;">작성자</p>
+        </li>
+        {{#boardSearched}}
+        <li style="display: flex; justify-content: space-between; align-items: center;">
+            <p style="font-size: 15px; font-weight: none; color: #000000; margin-right: 20px;">{{id}}</p>
+            <a href="/board/{{id}}" style="flex: 1; text-decoration: none;">
+                <p style="font-size: 15px; font-weight: none; color: #000000; margin-right: 20px;">{{title}}</p>
+                <a href="/user/{{id}}" class="writer" style="text-decoration: none; color: #000000;">{{writer}}</a>
+            </a>
+        </li>
+        {{/boardSearched}}
+    </ul>
+  <ul class="pagination justify-content-center">
+    <li class="page-item"><a class="page-link" href="?page={{previous}}">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{next}}">Next</a></li>           
+</ul>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>게시판 상세보기</title>
+<style>
+.like-btn {
+	background-color: #ff6b6b;
+	color: white;
+	border: none;
+	border-radius: 50px; /* 더 큰 값을 지정하여 동그라미로 만듭니다. */
+	width: 100px; /* 버튼의 가로 크기를 작게 조정합니다. */
+	height: 40px; /* 버튼의 세로 크기를 작게 조정합니다. */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 14px;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+	transition: background-color 0.3s; /* 호버 시 배경색 변경을 부드럽게 처리 */
+}
+
+.like-btn:hover {
+	background-color: #ff4d4d; /* 호버 시 배경색 변경 */
+}
+
+/* 버튼을 가운데로 정렬하기 위한 스타일 추가 */
+.like-btn-container {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px; /* 좋아요 버튼과 아래 컨텐츠 사이 간격 조정 */
+}
+
+body {
+	font-family: Arial, sans-serif;
+	max-width: 800px;
+	margin: 0 auto;
+	background-color: #F0F0F0;
+	padding: 20px;
+}
+
+h1 {
+	color: #000000;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.board-details {
+	background-color: #FFFFFF;
+	padding: 20px;
+	border-radius: 8px;
+}
+
+.board-details p {
+	font-size: 16px;
+	color: #000000;
+	margin-bottom: 10px;
+}
+
+.button-group {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.back-btn, .edit-btn, .delete-btn {
+	background-color: #000000; /* Black color for all buttons */
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+	text-align: center;
+	text-decoration: none;
+	margin-right: 10px;
+}
+
+.delete-btn:hover {
+	background-color: #333333; /* Darker black color on hover */
+}
+/* Additional styling for comment section */
+.comment-section {
+	margin-top: 30px;
+	border: 1px solid #E0E0E0;
+	border-radius: 8px;
+	padding: 20px;
+	background-color: #FFFFFF;
+}
+
+.comment-section h2 {
+	font-size: 20px;
+	color: #000000;
+	margin-bottom: 15px;
+}
+
+.comment {
+	margin-bottom: 15px;
+}
+
+.comment p {
+	font-size: 14px;
+	color: #000000;
+	margin-bottom: 5px;
+}
+
+.comment textarea {
+	width: 500px; /* 원하는 가로 폭으로 설정 (예: 500px) */
+	height: 120px; /* 원하는 높이로 설정 (예: 120px) */
+	resize: none; /* 사용자가 크기를 조절하지 못하도록 resize 속성을 none으로 설정 */
+	font-size: 14px;
+	padding: 5px;
+}
+
+.comment button {
+	background-color: #1E90FF;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 8px 16px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+.comment button:hover {
+	background-color: #0F62FE;
+}
+</style>
+</head>
+<body>
+	<div class="board-details">
+		<h1>{{board.title}}</h1>
+		<p>글 번호: {{board.id}}</p>
+		<p>작성자: {{board.writer}}</p>
+		<p>작성일시: {{board.createdAt}}</p>
+		<p>조회수: {{board.view}}</p>
+		<p>{{board.content}}</p>
+
+		<!-- 좋아요 버튼 -->
+	<div class="like-btn-container">
+	{{#liked}}
+    <form id="likeForm" action="/board/{{board.id}}/delete" method="post">
+        <button type="submit" class="like-btn" id="likeButton">좋아요 취소</button>
+    </form>
+{{/liked}}
+{{^liked}}
+    <form id="likeForm" action="/board/{{board.id}}/heart" method="post">
+        <button type="submit" class="like-btn" id="likeButton">좋아요</button>
+    </form>
+{{/liked}}
+</div>
+
+
+
+		<!-- 버튼 그룹 -->
+		<div class="button-group">
+			<a href="/home" class="back-btn">목록으로</a> {{#writer}} <a
+				href="/update/{{board.id}}" class="edit-btn">수정</a>
+			<form action="/delete/{{board.id}}" method="post" id="delete-form">
+				<input type="hidden" name="_method" value="delete">
+				<!-- CSRF 토큰이 필요한 경우, 토큰을 추가해주세요 -->
+				<!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}"> -->
+				<input type="submit" value="삭제" class="delete-btn">
+			</form>
+			{{/writer}}
+		</div>
+	</div>
+
+	<!-- 기존 스타일 유지 -->
+	<div class="comment-section">
+		<h2>댓글</h2>
+		{{#comments}}
+		<div class="comment">{{comment}} by {{nickname}} {{createdDate}}
+		</div>
+		{{/comments}}
+		<!-- 댓글 추가 폼 -->
+		<form action="/board/{{board.id}}/comment" method="post">
+			<input type="hidden" name="boardId" value="{{board.id}}">
+			<textarea name="comment" rows="6" cols="100" placeholder="댓글을 입력하세요"></textarea>
+			<button type="submit">댓글 등록</button>
+		</form>
+	</div>
+	<!-- 기존 스타일 유지 -->
+</body>
+</html>

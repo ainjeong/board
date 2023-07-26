@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원 정보</title>
+    <style>
+        /* 스타일을 추가하여 보기 좋게 꾸며줍니다. */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .user-info-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .user-info-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .user-info {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .button:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="user-info-container">
+        <h2>회원 정보</h2>
+        <div class="user-info">
+            <strong>Email:</strong> {{user.email}}<br>
+            <strong>닉네임:</strong> {{user.nickname}}
+        </div>
+     <div class="user-info">
+    <strong>내가 쓴 글:</strong>
+    <ul>
+        {{#boards}}
+        <li>
+            <a href="/board/{{id}}">{{title}}</a>
+        </li>
+        {{/boards}}
+    </ul>
+</div>
+
+<div class="user-info">
+    <strong>내가 댓글 단 글:</strong>
+    <ul>
+        {{#bvrs}}
+        <li>
+            <a href="/board/{{id}}#comment{{id}}">{{title}}</a>
+        </li>
+        {{/bvrs}}
+    </ul>
+</div>
+<div class="user-info">
+    <strong>좋아요 한 글:</strong>
+    <ul>
+        {{#likes}}
+        <li>
+            <a href="/board/{{id}}">{{title}}</a>
+        </li>
+        {{/likes}}
+    </ul>
+</div>
+        <!-- 필요한 경우 추가적인 사용자 정보를 여기에 표시 -->
+
+        <div class="button-container">
+            <a href="/user/delete/{{user.id}}" class="button">회원탈퇴</a>
+            <a href="/home" class="button">홈으로 가기</a>
+        </div>
+    </div>
+</body>
+</html>

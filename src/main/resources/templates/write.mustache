@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>게시판 작성</title>
+</head>
+<body>
+	<h1 style="color: #000000; text-align: center;">게시판 작성</h1>
+	<form action="/write" method="post"
+		style="background-color: #F0F0F0; max-width: 650px; margin: 0 auto; padding: 20px; border-radius: 8px;">
+		<label for="title" style="color: #000000; font-weight: bold;">제목:</label>
+		<input type="text" id="title" name="title" required
+			style="background-color: #FFFFFF; color: #000000; border: 1px solid #DDDDDD; padding: 10px; border-radius: 5px; width: 100%;"><br>
+
+		<label for="writer" style="color: #000000; font-weight: bold;">작성자:</label>
+		<input type="text" id="writer" name="writer" value="{{ nickname }}"
+			required disabled
+			style="background-color: #FFFFFF; color: #000000; border: 1px solid #DDDDDD; padding: 10px; border-radius: 5px; width: 100%;"><br>
+		<!-- 모델에서 user.nickname 값을 가져와서 작성자 필드에 자동으로 채움 -->
+
+		<label for="content" style="color: #000000; font-weight: bold;">내용:</label><br>
+		<textarea id="content" name="content" required
+			style="background-color: #FFFFFF; color: #000000; border: 1px solid #DDDDDD; padding: 10px; border-radius: 5px; width: 100%;"></textarea>
+		<br> <input type="submit" value="작성"
+			style="background-color: #CCCCCC; color: #000000; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%;">
+	</form>
+</body>
+</html>

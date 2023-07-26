@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원 탈퇴</title>
+    <style>
+        /* 스타일을 추가하여 보기 좋게 꾸며줍니다. */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .withdrawal-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .withdrawal-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .withdrawal-form {
+            margin-bottom: 20px;
+        }
+
+        .withdrawal-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .withdrawal-form input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .button:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="withdrawal-container">
+        <h2>회원 탈퇴</h2>
+        <form class="withdrawal-form" action="/user/delete/{{id}}" method="post">
+            <label for="password">비밀번호 입력:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="button-container">
+                <a href="/home" class="button">취소</a>
+                <button class="button" type="submit">탈퇴</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

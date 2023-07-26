@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 여기에 추가적인 CSS 파일 또는 스타일시트 링크를 추가할 수 있습니다. -->
+    <style>
+        body {
+            background-color: #F0F0F0;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+        .col-md-6 {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 30px;
+        }
+        .text-center {
+            color: #000000;
+        }
+        label {
+            color: #000000;
+            font-weight: bold;
+        }
+        input.form-control {
+            background-color: #FFFFFF;
+            color: #000000;
+            border: 1px solid #DDDDDD;
+        }
+        .btn-primary {
+            background-color: #000000;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">회원가입</h1>
+                <form action="/signup" method="post">
+                    
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nickname">닉네임</label>
+                        <input type="nickname" id="nickname" name="nickname" class="form-control" required>
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">가입하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
